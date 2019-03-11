@@ -10,8 +10,8 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190308220442_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20190311201520_intialCreate")]
+    partial class intialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -284,9 +284,7 @@ namespace StudentPlan.Migrations
 
             modelBuilder.Entity("StudentPlan.Models.StudentTerm", b =>
                 {
-                    b.Property<int>("StudentTermID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("StudentTermID");
 
                     b.Property<int>("DegreePlanID");
 

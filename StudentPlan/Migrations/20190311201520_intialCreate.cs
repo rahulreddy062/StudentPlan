@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudentPlan.Migrations
 {
-    public partial class IntialCreate : Migration
+    public partial class intialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,8 +138,7 @@ namespace StudentPlan.Migrations
                 name: "StudentTerm",
                 columns: table => new
                 {
-                    StudentTermID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    StudentTermID = table.Column<int>(nullable: false),
                     StudentID = table.Column<string>(nullable: true),
                     DegreePlanID = table.Column<int>(nullable: false),
                     Term = table.Column<int>(nullable: false),
