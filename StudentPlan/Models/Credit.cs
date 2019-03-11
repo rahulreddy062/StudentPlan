@@ -1,15 +1,14 @@
-using System;
-using System.Collection.Generic;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPlan.Models
 {
     public class Credit{
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CreditID { get; set; }
-        public string CreditAbb { get; set; }
+        public string CreditAbv { get; set; }
         public string CreditName { get; set; }
-        public int ISSummer { get; set; }
-        public int ISSpring { get; set; }
-        public int ISFall { get; set ;}
+        public int IsSummer { get; set; }
+        public int IsSpring { get; set; }
+        public int IsFall { get; set ;}
     }
 }

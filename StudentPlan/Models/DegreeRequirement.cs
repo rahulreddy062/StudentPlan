@@ -1,12 +1,11 @@
-using System;
-using System.Collection.Generic;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPlan.Models
 {
     public class DegreeRequirement
     {
-        public int DegreeCreditID{ get; set;}
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ID{ get; set;}
         public int DegreeID{ get; set; }
        public int CreditID{get; set;}
     }

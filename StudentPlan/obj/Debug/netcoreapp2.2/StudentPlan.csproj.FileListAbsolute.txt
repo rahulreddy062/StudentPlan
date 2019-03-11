@@ -5,7 +5,6 @@ C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\bin\Debug\netcoreapp2.2
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\bin\Debug\netcoreapp2.2\StudentPlan.pdb
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\bin\Debug\netcoreapp2.2\StudentPlan.Views.dll
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\bin\Debug\netcoreapp2.2\StudentPlan.Views.pdb
-C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.csprojAssemblyReference.cache
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.csproj.CoreCompileInputs.cache
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.RazorAssemblyInfo.cache
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.RazorAssemblyInfo.cs
@@ -30,3 +29,4 @@ C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.dll
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.pdb
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.csproj.CopyComplete
+C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\StudentPlan.csprojAssemblyReference.cache
