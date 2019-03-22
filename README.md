@@ -43,3 +43,8 @@ This application has a basic user interface with options to drag and drop with a
 | weeks             | 4        |
 | no of developers  | 4        |
 | Cost              | 24000    |
+
+## screenshot estimator 
+
+![](https://raw.githubusercontent.com/rahulreddy062/StudentPlan/master/1.PNG)
+![](https://raw.githubusercontent.com/rahulreddy062/StudentPlan/master/2.PNG) 
