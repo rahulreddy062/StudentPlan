@@ -9,20 +9,30 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by credit Id: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DegreePlanID)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TermsSortParm"]">@Html.DisplayNameFor(model => model.DegreeTerm)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreditID)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["StatusSortParm"]">@Html.DisplayNameFor(model => model.Status)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.DegreePlan)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DegreeTerm)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CreditSortParm"]">@Html.DisplayNameFor(model => model.CreditId)</a>
             </th>
             <th></th>
         </tr>
@@ -31,21 +41,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DegreePlanID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreditID)
+                @Html.DisplayFor(modelItem => item.DegreeTerm)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DegreeTerm)
+                @Html.DisplayFor(modelItem => item.DegreePlanId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.SlotID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SlotID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SlotID">Delete</a>
+                @Html.DisplayFor(modelItem => item.CreditId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SlotId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SlotId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SlotId">Delete</a>
             </td>
         </tr>
 }

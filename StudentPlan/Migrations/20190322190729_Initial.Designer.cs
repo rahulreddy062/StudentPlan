@@ -10,8 +10,8 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190311201520_intialCreate")]
-    partial class intialCreate
+    [Migration("20190322190729_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -188,11 +188,15 @@ namespace StudentPlan.Migrations
 
             modelBuilder.Entity("StudentPlan.Models.Credit", b =>
                 {
-                    b.Property<int>("CreditID");
+                    b.Property<int>("CreditId");
 
-                    b.Property<string>("CreditAbv");
+                    b.Property<string>("CreditAbv")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
-                    b.Property<string>("CreditName");
+                    b.Property<string>("CreditName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int>("IsFall");
 
@@ -200,105 +204,139 @@ namespace StudentPlan.Migrations
 
                     b.Property<int>("IsSummer");
 
-                    b.HasKey("CreditID");
+                    b.HasKey("CreditId");
 
                     b.ToTable("Credit");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.Degree", b =>
                 {
-                    b.Property<int>("DegreeID");
+                    b.Property<int>("DegreeId");
 
-                    b.Property<string>("DegreeAbbr");
+                    b.Property<string>("DegreeAbbr")
+                        .IsRequired()
+                        .HasMaxLength(6);
 
-                    b.Property<string>("DegreeName");
+                    b.Property<string>("DegreeName")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
-                    b.HasKey("DegreeID");
+                    b.HasKey("DegreeId");
 
                     b.ToTable("Degree");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.DegreePlan", b =>
                 {
-                    b.Property<int>("DegreePlanID");
+                    b.Property<int>("DegreePlanId");
 
-                    b.Property<int>("DegreeID");
+                    b.Property<int>("DegreeId");
 
-                    b.Property<string>("DegreePlanAbbrev");
+                    b.Property<string>("DegreePlanAbbrev")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
-                    b.Property<string>("DegreePlanName");
+                    b.Property<string>("DegreePlanName")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
-                    b.Property<int>("StudentID");
+                    b.Property<int>("StudentId");
 
-                    b.HasKey("DegreePlanID");
+                    b.HasKey("DegreePlanId");
+
+                    b.HasIndex("DegreeId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("DegreePlan");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.DegreeRequirement", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("Id");
 
-                    b.Property<int>("CreditID");
+                    b.Property<int>("CreditId");
 
-                    b.Property<int>("DegreeID");
+                    b.Property<int>("DegreeId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreditId");
+
+                    b.HasIndex("DegreeId");
 
                     b.ToTable("DegreeRequirements");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.Slot", b =>
                 {
-                    b.Property<int>("SlotID");
+                    b.Property<int>("SlotId");
 
-                    b.Property<string>("CreditID");
+                    b.Property<int>("CreditId");
 
-                    b.Property<int>("DegreePlanID");
+                    b.Property<int>("DegreePlanId");
 
                     b.Property<int>("DegreeTerm");
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(8);
 
-                    b.HasKey("SlotID");
+                    b.HasKey("SlotId");
+
+                    b.HasIndex("CreditId");
+
+                    b.HasIndex("DegreePlanId");
 
                     b.ToTable("Slot");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.Student", b =>
                 {
-                    b.Property<string>("StudentID");
+                    b.Property<int>("StudentId");
 
-                    b.Property<string>("Family");
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
-                    b.Property<string>("Given");
+                    b.Property<string>("Given")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
                     b.Property<int>("Number919");
 
                     b.Property<string>("Snumber");
 
-                    b.HasKey("StudentID");
+                    b.HasKey("StudentId");
 
                     b.ToTable("Student");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.StudentTerm", b =>
                 {
-                    b.Property<int>("StudentTermID");
+                    b.Property<int>("StudentTermId");
 
-                    b.Property<int>("DegreePlanID");
+                    b.Property<int>("DegreePlanId");
 
                     b.Property<int>("NoOfCoursesTaken");
 
-                    b.Property<string>("StudentID");
+                    b.Property<int?>("StudentId");
 
                     b.Property<int>("Term");
 
-                    b.Property<string>("TermAbbr");
+                    b.Property<string>("TermAbbr")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
-                    b.Property<string>("TermName");
+                    b.Property<string>("TermName")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
-                    b.HasKey("StudentTermID");
+                    b.HasKey("StudentTermId");
+
+                    b.HasIndex("DegreePlanId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("StudentTerm");
                 });
@@ -346,6 +384,57 @@ namespace StudentPlan.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("StudentPlan.Models.DegreePlan", b =>
+                {
+                    b.HasOne("StudentPlan.Models.Degree", "Degree")
+                        .WithMany()
+                        .HasForeignKey("DegreeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentPlan.Models.Student", "Student")
+                        .WithMany("DegreePlans")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("StudentPlan.Models.DegreeRequirement", b =>
+                {
+                    b.HasOne("StudentPlan.Models.Credit", "Credit")
+                        .WithMany()
+                        .HasForeignKey("CreditId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentPlan.Models.Degree", "Degree")
+                        .WithMany()
+                        .HasForeignKey("DegreeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("StudentPlan.Models.Slot", b =>
+                {
+                    b.HasOne("StudentPlan.Models.Credit", "Credit")
+                        .WithMany()
+                        .HasForeignKey("CreditId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentPlan.Models.DegreePlan", "DegreePlan")
+                        .WithMany()
+                        .HasForeignKey("DegreePlanId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("StudentPlan.Models.StudentTerm", b =>
+                {
+                    b.HasOne("StudentPlan.Models.DegreePlan", "DegreePlan")
+                        .WithMany()
+                        .HasForeignKey("DegreePlanId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentPlan.Models.Student")
+                        .WithMany("StudentTerms")
+                        .HasForeignKey("StudentId");
                 });
 #pragma warning restore 612, 618
         }

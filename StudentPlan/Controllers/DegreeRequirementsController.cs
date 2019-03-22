@@ -20,9 +20,38 @@ namespace StudentPlan.Controllers
         }
 
         // GET: DegreeRequirements
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String sortOrder, string searchString)
         {
-            return View(await _context.DegreeRequirements.ToListAsync());
+            ViewData["DegreeIdParm"] = String.IsNullOrEmpty(sortOrder) ? "DegreeId_desc" : "";
+            ViewData["RequirementIdParm"] = sortOrder == "RequirementId" ? "ReauirementId_desc" : "RequirementId";
+            ViewData["CurrentFilter"] = searchString;
+            var degreereq = from s in _context.DegreeRequirements
+                            select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                degreereq = degreereq.Where(s => s.DegreeId.ToString().Contains(searchString)
+                                       || s.CreditId.ToString().Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "DegreeId_desc":
+                    degreereq = degreereq.OrderByDescending(s => s.DegreeId);
+                    break;
+
+                case "RequirementId":
+                    degreereq = degreereq.OrderBy(s => s.CreditId);
+                    break;
+                case "ReauirementId_desc":
+                    degreereq = degreereq.OrderByDescending(s => s.CreditId);
+                    break;
+                default:
+                    degreereq = degreereq.OrderBy(s => s.Id);
+                    break;
+            }
+
+            return View(await degreereq.AsNoTracking().ToListAsync());
         }
 
         // GET: DegreeRequirements/Details/5
@@ -34,7 +63,9 @@ namespace StudentPlan.Controllers
             }
 
             var degreeRequirement = await _context.DegreeRequirements
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(d => d.Credit)
+                .Include(d => d.Degree)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (degreeRequirement == null)
             {
                 return NotFound();
@@ -46,6 +77,8 @@ namespace StudentPlan.Controllers
         // GET: DegreeRequirements/Create
         public IActionResult Create()
         {
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv");
+            ViewData["DegreeId"] = new SelectList(_context.Degrees, "DegreeId", "DegreeAbbr");
             return View();
         }
 
@@ -54,7 +87,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,DegreeID,CreditID")] DegreeRequirement degreeRequirement)
+        public async Task<IActionResult> Create([Bind("Id,DegreeId,CreditId")] DegreeRequirement degreeRequirement)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +95,8 @@ namespace StudentPlan.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv", degreeRequirement.CreditId);
+            ViewData["DegreeId"] = new SelectList(_context.Degrees, "DegreeId", "DegreeAbbr", degreeRequirement.DegreeId);
             return View(degreeRequirement);
         }
 
@@ -78,6 +113,8 @@ namespace StudentPlan.Controllers
             {
                 return NotFound();
             }
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv", degreeRequirement.CreditId);
+            ViewData["DegreeId"] = new SelectList(_context.Degrees, "DegreeId", "DegreeAbbr", degreeRequirement.DegreeId);
             return View(degreeRequirement);
         }
 
@@ -86,9 +123,9 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,DegreeID,CreditID")] DegreeRequirement degreeRequirement)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DegreeId,CreditId")] DegreeRequirement degreeRequirement)
         {
-            if (id != degreeRequirement.ID)
+            if (id != degreeRequirement.Id)
             {
                 return NotFound();
             }
@@ -102,7 +139,7 @@ namespace StudentPlan.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DegreeRequirementExists(degreeRequirement.ID))
+                    if (!DegreeRequirementExists(degreeRequirement.Id))
                     {
                         return NotFound();
                     }
@@ -113,6 +150,8 @@ namespace StudentPlan.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv", degreeRequirement.CreditId);
+            ViewData["DegreeId"] = new SelectList(_context.Degrees, "DegreeId", "DegreeAbbr", degreeRequirement.DegreeId);
             return View(degreeRequirement);
         }
 
@@ -125,7 +164,9 @@ namespace StudentPlan.Controllers
             }
 
             var degreeRequirement = await _context.DegreeRequirements
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(d => d.Credit)
+                .Include(d => d.Degree)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (degreeRequirement == null)
             {
                 return NotFound();
@@ -147,7 +188,7 @@ namespace StudentPlan.Controllers
 
         private bool DegreeRequirementExists(int id)
         {
-            return _context.DegreeRequirements.Any(e => e.ID == id);
+            return _context.DegreeRequirements.Any(e => e.Id == id);
         }
     }
 }

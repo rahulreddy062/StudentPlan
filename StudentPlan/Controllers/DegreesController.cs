@@ -20,10 +20,35 @@ namespace StudentPlan.Controllers
         }
 
         // GET: Degrees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.Degrees.ToListAsync());
-        }
+            ViewData["AbvSortParm"] = String.IsNullOrEmpty(sortOrder) ? "abv_desc" : "";
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+           
+            ViewData["CurrentFilter"] = searchString;
+            var degrees = from s in _context.Degrees
+                          select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                degrees = degrees.Where(s => s.DegreeAbbr.Contains(searchString)
+                                       || s.DegreeName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    degrees = degrees.OrderByDescending(s => s.DegreeName);
+                    break;
+                case "abv_desc":
+                    degrees = degrees.OrderBy(s => s.DegreeAbbr);
+                    break;
+               
+                default:
+                    degrees = degrees.OrderBy(s => s.DegreeId);
+                    break;
+            }
+            return View(await degrees.AsNoTracking().ToListAsync());
+        
+    }
 
         // GET: Degrees/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +59,7 @@ namespace StudentPlan.Controllers
             }
 
             var degree = await _context.Degrees
-                .FirstOrDefaultAsync(m => m.DegreeID == id);
+                .FirstOrDefaultAsync(m => m.DegreeId == id);
             if (degree == null)
             {
                 return NotFound();
@@ -54,7 +79,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DegreeID,DegreeAbbr,DegreeName")] Degree degree)
+        public async Task<IActionResult> Create([Bind("DegreeId,DegreeAbbr,DegreeName")] Degree degree)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +111,9 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DegreeID,DegreeAbbr,DegreeName")] Degree degree)
+        public async Task<IActionResult> Edit(int id, [Bind("DegreeId,DegreeAbbr,DegreeName")] Degree degree)
         {
-            if (id != degree.DegreeID)
+            if (id != degree.DegreeId)
             {
                 return NotFound();
             }
@@ -102,7 +127,7 @@ namespace StudentPlan.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DegreeExists(degree.DegreeID))
+                    if (!DegreeExists(degree.DegreeId))
                     {
                         return NotFound();
                     }
@@ -125,7 +150,7 @@ namespace StudentPlan.Controllers
             }
 
             var degree = await _context.Degrees
-                .FirstOrDefaultAsync(m => m.DegreeID == id);
+                .FirstOrDefaultAsync(m => m.DegreeId == id);
             if (degree == null)
             {
                 return NotFound();
@@ -147,7 +172,7 @@ namespace StudentPlan.Controllers
 
         private bool DegreeExists(int id)
         {
-            return _context.Degrees.Any(e => e.DegreeID == id);
+            return _context.Degrees.Any(e => e.DegreeId == id);
         }
     }
 }

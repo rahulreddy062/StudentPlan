@@ -20,10 +20,33 @@ namespace StudentPlan.Controllers
         }
 
         // GET: Credits
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.Credits.ToListAsync());
+            ViewData["AbvSortParm"] = String.IsNullOrEmpty(sortOrder) ? "abv_desc" : "";
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+            var degrees = from s in _context.Credits
+                          select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                degrees = degrees.Where(s => s.CreditAbv.Contains(searchString)
+                                       || s.CreditName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    degrees = degrees.OrderByDescending(s => s.CreditName);
+                    break;
+                case "abv_desc":
+                    degrees = degrees.OrderBy(s => s.CreditAbv);
+                    break;
+                default:
+                    degrees = degrees.OrderBy(s => s.CreditId);
+                    break;
+            }
+            return View(await degrees.AsNoTracking().ToListAsync());
         }
+
 
         // GET: Credits/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +57,7 @@ namespace StudentPlan.Controllers
             }
 
             var credit = await _context.Credits
-                .FirstOrDefaultAsync(m => m.CreditID == id);
+                .FirstOrDefaultAsync(m => m.CreditId == id);
             if (credit == null)
             {
                 return NotFound();
@@ -54,7 +77,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CreditID,CreditAbv,CreditName,IsSummer,IsSpring,IsFall")] Credit credit)
+        public async Task<IActionResult> Create([Bind("CreditId,CreditAbv,CreditName,IsSummer,IsSpring,IsFall")] Credit credit)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +109,9 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CreditID,CreditAbv,CreditName,IsSummer,IsSpring,IsFall")] Credit credit)
+        public async Task<IActionResult> Edit(int id, [Bind("CreditId,CreditAbv,CreditName,IsSummer,IsSpring,IsFall")] Credit credit)
         {
-            if (id != credit.CreditID)
+            if (id != credit.CreditId)
             {
                 return NotFound();
             }
@@ -102,7 +125,7 @@ namespace StudentPlan.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CreditExists(credit.CreditID))
+                    if (!CreditExists(credit.CreditId))
                     {
                         return NotFound();
                     }
@@ -125,7 +148,7 @@ namespace StudentPlan.Controllers
             }
 
             var credit = await _context.Credits
-                .FirstOrDefaultAsync(m => m.CreditID == id);
+                .FirstOrDefaultAsync(m => m.CreditId == id);
             if (credit == null)
             {
                 return NotFound();
@@ -147,7 +170,7 @@ namespace StudentPlan.Controllers
 
         private bool CreditExists(int id)
         {
-            return _context.Credits.Any(e => e.CreditID == id);
+            return _context.Credits.Any(e => e.CreditId == id);
         }
     }
 }

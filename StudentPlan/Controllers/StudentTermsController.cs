@@ -20,10 +20,44 @@ namespace StudentPlan.Controllers
         }
 
         // GET: StudentTerms
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.StudentTerms.ToListAsync());
+            ViewData["DegreeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "degree_desc" : "";
+            ViewData["TermsSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Terms_desc" : "";
+            ViewData["TermSortParm"] = sortOrder == "Term" ? "term_desc" : "Term";
+            ViewData["CurrentFilter"] = searchString;
+            var studentTerms = from s in _context.StudentTerms
+                               select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                studentTerms = studentTerms.Where(s => s.Term.ToString().Contains(searchString)
+                                 || s.TermAbbr.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "degree_desc":
+                    studentTerms = studentTerms.OrderByDescending(s => s.DegreePlanId);
+                    break;
+                case "Terms_desc":
+                    studentTerms = studentTerms.OrderByDescending(s => s.TermAbbr);
+                    break;
+                case "Term":
+                    studentTerms = studentTerms.OrderBy(s => s.Term);
+                    break;
+
+                case "term_desc":
+                    studentTerms = studentTerms.OrderByDescending(s => s.Term);
+                    break;
+                default:
+                    studentTerms = studentTerms.OrderBy(s => s.StudentTermId);
+                    break;
+            }
+            //var applicationDbContext = _context.StudentTerms.Include(s => s.StudentTermId).Include(s => s.DegreePlan);
+            //return View(await applicationDbContext.ToListAsync());
+            return View(await studentTerms.AsNoTracking().ToListAsync());
         }
+
+
 
         // GET: StudentTerms/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +68,8 @@ namespace StudentPlan.Controllers
             }
 
             var studentTerm = await _context.StudentTerms
-                .FirstOrDefaultAsync(m => m.StudentTermID == id);
+                .Include(s => s.DegreePlan)
+                .FirstOrDefaultAsync(m => m.StudentTermId == id);
             if (studentTerm == null)
             {
                 return NotFound();
@@ -46,6 +81,7 @@ namespace StudentPlan.Controllers
         // GET: StudentTerms/Create
         public IActionResult Create()
         {
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev");
             return View();
         }
 
@@ -54,7 +90,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentTermID,StudentID,DegreePlanID,Term,TermAbbr,TermName,NoOfCoursesTaken")] StudentTerm studentTerm)
+        public async Task<IActionResult> Create([Bind("StudentTermId,DegreePlanId,Term,TermAbbr,TermName,NoOfCoursesTaken")] StudentTerm studentTerm)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +98,7 @@ namespace StudentPlan.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev", studentTerm.DegreePlanId);
             return View(studentTerm);
         }
 
@@ -78,6 +115,7 @@ namespace StudentPlan.Controllers
             {
                 return NotFound();
             }
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev", studentTerm.DegreePlanId);
             return View(studentTerm);
         }
 
@@ -86,9 +124,9 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentTermID,StudentID,DegreePlanID,Term,TermAbbr,TermName,NoOfCoursesTaken")] StudentTerm studentTerm)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentTermId,DegreePlanId,Term,TermAbbr,TermName,NoOfCoursesTaken")] StudentTerm studentTerm)
         {
-            if (id != studentTerm.StudentTermID)
+            if (id != studentTerm.StudentTermId)
             {
                 return NotFound();
             }
@@ -102,7 +140,7 @@ namespace StudentPlan.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentTermExists(studentTerm.StudentTermID))
+                    if (!StudentTermExists(studentTerm.StudentTermId))
                     {
                         return NotFound();
                     }
@@ -113,6 +151,7 @@ namespace StudentPlan.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev", studentTerm.DegreePlanId);
             return View(studentTerm);
         }
 
@@ -125,7 +164,8 @@ namespace StudentPlan.Controllers
             }
 
             var studentTerm = await _context.StudentTerms
-                .FirstOrDefaultAsync(m => m.StudentTermID == id);
+                .Include(s => s.DegreePlan)
+                .FirstOrDefaultAsync(m => m.StudentTermId == id);
             if (studentTerm == null)
             {
                 return NotFound();
@@ -147,7 +187,7 @@ namespace StudentPlan.Controllers
 
         private bool StudentTermExists(int id)
         {
-            return _context.StudentTerms.Any(e => e.StudentTermID == id);
+            return _context.StudentTerms.Any(e => e.StudentTermId == id);
         }
     }
 }

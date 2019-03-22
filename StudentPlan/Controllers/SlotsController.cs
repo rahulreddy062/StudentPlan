@@ -20,10 +20,45 @@ namespace StudentPlan.Controllers
         }
 
         // GET: Slots
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.Slots.ToListAsync());
+            ViewData["StatusSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
+            ViewData["CreditSortParm"] = sortOrder == "Credits" ? "credit_desc" : "Credits";
+            ViewData["TermsSortParm"] = sortOrder == "Terms" ? "term_desc" : "Term";
+            ViewData["CurrentFilter"] = searchString;
+            var slots = from s in _context.Slots
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                slots = slots.Where(s => s.DegreeTerm.ToString().Contains(searchString)
+                                 || s.CreditId.ToString().Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "status_desc":
+                    slots = slots.OrderByDescending(s => s.Status);
+                    break;
+                case "credit_desc":
+                    slots = slots.OrderBy(s => s.CreditId);
+                    break;
+                case "term_desc":
+                    slots = slots.OrderByDescending(s => s.DegreeTerm);
+                    break;
+                case "Cedits":
+                    slots = slots.OrderBy(s => s.CreditId);
+                    break;
+                case "Term":
+                    slots = slots.OrderByDescending(s => s.DegreeTerm);
+                    break;
+                default:
+                    slots = slots.OrderBy(s => s.SlotId);
+                    break;
+            }
+            //  var applicationDbContext = _context.Slots.Include(s => s.SlotId).Include(s => s.DegreePlan);
+            //return View(await applicationDbContext.ToListAsync());
+            return View(await slots.AsNoTracking().ToListAsync());
         }
+    
 
         // GET: Slots/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +69,9 @@ namespace StudentPlan.Controllers
             }
 
             var slot = await _context.Slots
-                .FirstOrDefaultAsync(m => m.SlotID == id);
+                .Include(s => s.Credit)
+                .Include(s => s.DegreePlan)
+                .FirstOrDefaultAsync(m => m.SlotId == id);
             if (slot == null)
             {
                 return NotFound();
@@ -46,6 +83,8 @@ namespace StudentPlan.Controllers
         // GET: Slots/Create
         public IActionResult Create()
         {
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv");
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev");
             return View();
         }
 
@@ -54,7 +93,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SlotID,DegreePlanID,CreditID,Status,DegreeTerm")] Slot slot)
+        public async Task<IActionResult> Create([Bind("SlotId,DegreePlanId,DegreeTerm,CreditId,Status")] Slot slot)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +101,8 @@ namespace StudentPlan.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv", slot.CreditId);
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev", slot.DegreePlanId);
             return View(slot);
         }
 
@@ -78,6 +119,8 @@ namespace StudentPlan.Controllers
             {
                 return NotFound();
             }
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv", slot.CreditId);
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev", slot.DegreePlanId);
             return View(slot);
         }
 
@@ -86,9 +129,9 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SlotID,DegreePlanID,CreditID,Status,DegreeTerm")] Slot slot)
+        public async Task<IActionResult> Edit(int id, [Bind("SlotId,DegreePlanId,DegreeTerm,CreditId,Status")] Slot slot)
         {
-            if (id != slot.SlotID)
+            if (id != slot.SlotId)
             {
                 return NotFound();
             }
@@ -102,7 +145,7 @@ namespace StudentPlan.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SlotExists(slot.SlotID))
+                    if (!SlotExists(slot.SlotId))
                     {
                         return NotFound();
                     }
@@ -113,6 +156,8 @@ namespace StudentPlan.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CreditId"] = new SelectList(_context.Credits, "CreditId", "CreditAbv", slot.CreditId);
+            ViewData["DegreePlanId"] = new SelectList(_context.DegreePlans, "DegreePlanId", "DegreePlanAbbrev", slot.DegreePlanId);
             return View(slot);
         }
 
@@ -125,7 +170,9 @@ namespace StudentPlan.Controllers
             }
 
             var slot = await _context.Slots
-                .FirstOrDefaultAsync(m => m.SlotID == id);
+                .Include(s => s.Credit)
+                .Include(s => s.DegreePlan)
+                .FirstOrDefaultAsync(m => m.SlotId == id);
             if (slot == null)
             {
                 return NotFound();
@@ -147,7 +194,7 @@ namespace StudentPlan.Controllers
 
         private bool SlotExists(int id)
         {
-            return _context.Slots.Any(e => e.SlotID == id);
+            return _context.Slots.Any(e => e.SlotId == id);
         }
     }
 }

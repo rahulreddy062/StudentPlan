@@ -20,13 +20,44 @@ namespace StudentPlan.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.Students.ToListAsync());
-        }
+            ViewData["FamilyNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Fname_desc" : "";
+            ViewData["GivenNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Gname_desc" : "";
+            ViewData["SidSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Sid_desc" : "";
+            ViewData["CatpawsidSortParm"] = sortOrder == "Catpawsids" ? "Catpawsid_desc" : "Catpawsid";
+            ViewData["CurrentFilter"] = searchString;
+            var students = from s in _context.Students
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.Family.Contains(searchString)
+                                       || s.Given.Contains(searchString) || s.Snumber.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "Fname_desc":
+                    students = students.OrderByDescending(s => s.Family);
+                    break;
+                case "Gname_desc":
+                    students = students.OrderBy(s => s.Given);
+                    break;
+                case "Sid_desc":
+                    students = students.OrderBy(s => s.Snumber);
+                    break;
+                case "Catpawsid_desc":
+                    students = students.OrderByDescending(s => s.Number919);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.StudentId);
+                    break;
+            }
+            return View(await students.AsNoTracking().ToListAsync());
+        
+    }
 
         // GET: Students/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -34,7 +65,7 @@ namespace StudentPlan.Controllers
             }
 
             var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.StudentID == id);
+                .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
                 return NotFound();
@@ -54,7 +85,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentID,Family,Given,Snumber,Number919")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,Family,Given,Snumber,Number919")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +97,7 @@ namespace StudentPlan.Controllers
         }
 
         // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -86,9 +117,9 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentID,Family,Given,Snumber,Number919")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,Family,Given,Snumber,Number919")] Student student)
         {
-            if (id != student.StudentID)
+            if (id != student.StudentId)
             {
                 return NotFound();
             }
@@ -102,7 +133,7 @@ namespace StudentPlan.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.StudentID))
+                    if (!StudentExists(student.StudentId))
                     {
                         return NotFound();
                     }
@@ -117,7 +148,7 @@ namespace StudentPlan.Controllers
         }
 
         // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -125,7 +156,7 @@ namespace StudentPlan.Controllers
             }
 
             var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.StudentID == id);
+                .FirstOrDefaultAsync(m => m.StudentId == id);
             if (student == null)
             {
                 return NotFound();
@@ -137,7 +168,7 @@ namespace StudentPlan.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var student = await _context.Students.FindAsync(id);
             _context.Students.Remove(student);
@@ -145,9 +176,9 @@ namespace StudentPlan.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(string id)
+        private bool StudentExists(int id)
         {
-            return _context.Students.Any(e => e.StudentID == id);
+            return _context.Students.Any(e => e.StudentId == id);
         }
     }
 }

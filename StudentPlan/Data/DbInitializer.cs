@@ -19,10 +19,10 @@ namespace StudentPlan.Data
             {
                 var degrees = new Degree[]
                 {
-                new Degree { DegreeID=1,DegreeAbbr="ACS+2",  DegreeName ="MS ACS+2"},
-                new Degree { DegreeID=2,DegreeAbbr="ACS+DB", DegreeName ="MS ACS+DB"},
-                     new Degree { DegreeID=3,DegreeAbbr="ACS+NF", DegreeName ="MS ACS+NF"},
-                     new Degree { DegreeID=4,DegreeAbbr="ACS", DegreeName ="ACS"}
+                new Degree { DegreeId=1,DegreeAbbr="ACS+2",  DegreeName ="MS ACS+2"},
+                new Degree { DegreeId=2,DegreeAbbr="ACS+DB", DegreeName ="MS ACS+DB"},
+                     new Degree { DegreeId=3,DegreeAbbr="ACS+NF", DegreeName ="MS ACS+NF"},
+                     new Degree { DegreeId=4,DegreeAbbr="ACS", DegreeName ="ACS"}
 
                 };
                 Console.WriteLine($"Inserted {degrees.Length} new degrees.");
@@ -33,6 +33,9 @@ namespace StudentPlan.Data
                 }
                 context.SaveChanges();
             }
+
+
+
             if (context.Credits.Any())
             {
                 Console.WriteLine("Degree already exist");   // DB has been seeded
@@ -41,19 +44,19 @@ namespace StudentPlan.Data
             {
                 var credits = new Credit[]
                 {
-             new Credit{CreditID =460 , CreditAbv ="DB" , CreditName ="Database" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =356 , CreditAbv ="NF" , CreditName ="Network Fundamentals" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =542 , CreditAbv ="542" , CreditName ="OOP" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =563 , CreditAbv ="563" , CreditName ="Web Apps ", IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =560 , CreditAbv ="560 ", CreditName ="Advanced Databases" , IsSummer =1, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =664 , CreditAbv ="664-UX" , CreditName ="User Experince Design" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =618 , CreditAbv ="618-PM ", CreditName ="ProjectManagement" , IsSummer =1, IsSpring =0 , IsFall = 0},
-             new Credit{CreditID =555 , CreditAbv ="555-NS" , CreditName ="Network Security" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =691 , CreditAbv ="691-GDP1" , CreditName ="GDP1" , IsSummer =1, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =692 , CreditAbv ="692-GDP2 ", CreditName ="GDP2" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =64 , CreditAbv ="Mobile" , CreditName ="643 or 644 Mobile" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =10 , CreditAbv ="E1" , CreditName ="Elective1" , IsSummer =0, IsSpring =1 , IsFall = 1},
-             new Credit{CreditID =20 , CreditAbv ="E2" , CreditName ="Elective2" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =460 , CreditAbv ="DB" , CreditName ="Database" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =356 , CreditAbv ="NF" , CreditName ="Network Fundamentals" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =542 , CreditAbv ="542" , CreditName ="OOP" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =563 , CreditAbv ="563" , CreditName ="Web Apps ", IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =560 , CreditAbv ="560 ", CreditName ="Advanced Databases" , IsSummer =1, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =664 , CreditAbv ="664-UX" , CreditName ="User Experince Design" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =618 , CreditAbv ="618-PM ", CreditName ="ProjectManagement" , IsSummer =1, IsSpring =0 , IsFall = 0},
+             new Credit{CreditId =555 , CreditAbv ="555-NS" , CreditName ="Network Security" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =691 , CreditAbv ="691-GDP1" , CreditName ="GDP1" , IsSummer =1, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =692 , CreditAbv ="692-GDP2 ", CreditName ="GDP2" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =64 , CreditAbv ="Mobile" , CreditName ="643 or 644 Mobile" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =10 , CreditAbv ="E1" , CreditName ="Elective1" , IsSummer =0, IsSpring =1 , IsFall = 1},
+             new Credit{CreditId =20 , CreditAbv ="E2" , CreditName ="Elective2" , IsSummer =0, IsSpring =1 , IsFall = 1},
                 };
 
                 foreach (Credit i in credits)
@@ -62,6 +65,9 @@ namespace StudentPlan.Data
                 }
                 context.SaveChanges();
             }
+
+
+
             if (context.Students.Any())
             {
                 Console.WriteLine("Degree already exist");   // DB has been seeded
@@ -70,13 +76,13 @@ namespace StudentPlan.Data
             {
                 var students = new Student[]
                 {
-                new Student { StudentID= "S533620",     Family ="Devineni", Given="Sandeep" , Snumber ="S533620" , Number919 = 919572432
+                new Student { StudentId= 533620,     Family ="Devineni", Given="Sandeep" , Snumber ="S533620" , Number919 = 919572432
                 },
-                    new Student { StudentID= "S533901",     Family ="Dayam", Given="Rahul" , Snumber ="S533901" , Number919 = 919571516
+                    new Student { StudentId= 533901,     Family ="Dayam", Given="Rahul" , Snumber ="S533901" , Number919 = 919571516
                     },
-                    new Student { StudentID= "S533978",     Family ="Vagicherla", Given="Sampath" , Snumber ="S533978" , Number919 = 919575632
+                    new Student { StudentId= 533978,     Family ="Vagicherla", Given="Sampath" , Snumber ="S533978" , Number919 = 919575632
                     },
-                    new Student { StudentID= "S533979",     Family ="Veeramachaneni", Given="Subhash" , Snumber ="S533979" , Number919 = 919570258
+                    new Student { StudentId= 533979,     Family ="Veeramachaneni", Given="Subhash" , Snumber ="S533979" , Number919 = 919570258
                     },
 
 
@@ -88,6 +94,8 @@ namespace StudentPlan.Data
                 }
                 context.SaveChanges();
             }
+
+
             if (context.DegreeRequirements.Any())
             {
                 Console.WriteLine("Degree already exist");   // DB has been seeded
@@ -96,18 +104,18 @@ namespace StudentPlan.Data
             {
                 var degreerequirements = new DegreeRequirement[]
                 {
-        new DegreeRequirement{ID=1 ,  DegreeID=2 ,CreditID=460},
-        new DegreeRequirement{ID=2,  DegreeID=2 ,CreditID=542},
-        new DegreeRequirement{ID=3,  DegreeID=2 ,CreditID=563},
-        new DegreeRequirement{ID=4,  DegreeID=2 ,CreditID=560},
-        new DegreeRequirement{ID=5,  DegreeID=2 ,CreditID=664},
-        new DegreeRequirement{ID=6,  DegreeID=2 ,CreditID=618},
-        new DegreeRequirement{ID= 7,  DegreeID=2 ,CreditID=555},
-        new DegreeRequirement{ID=8,  DegreeID=2 ,CreditID=691},
-        new DegreeRequirement{ID=9,  DegreeID=2 ,CreditID=692},
-        new DegreeRequirement{ID=10,  DegreeID=2 ,CreditID=64},
-        new DegreeRequirement{ID=11,  DegreeID=2 ,CreditID=10},
-        new DegreeRequirement{ID=12,  DegreeID=2 ,CreditID=20},
+        new DegreeRequirement{Id=1 ,  DegreeId=2 ,CreditId=460},
+        new DegreeRequirement{Id=2,  DegreeId=2 ,CreditId=542},
+        new DegreeRequirement{Id=3,  DegreeId=2 ,CreditId=563},
+        new DegreeRequirement{Id=4,  DegreeId=2 ,CreditId=560},
+        new DegreeRequirement{Id=5,  DegreeId=2 ,CreditId=664},
+        new DegreeRequirement{Id=6,  DegreeId=2 ,CreditId=618},
+        new DegreeRequirement{Id= 7,  DegreeId=2 ,CreditId=555},
+        new DegreeRequirement{Id=8,  DegreeId=2 ,CreditId=691},
+        new DegreeRequirement{Id=9,  DegreeId=2 ,CreditId=692},
+        new DegreeRequirement{Id=10,  DegreeId=2 ,CreditId=64},
+        new DegreeRequirement{Id=11,  DegreeId=2 ,CreditId=10},
+        new DegreeRequirement{Id=12,  DegreeId=2 ,CreditId=20},
 
 
                 };
@@ -118,6 +126,8 @@ namespace StudentPlan.Data
                 }
                 context.SaveChanges();
             }
+
+
             if (context.DegreePlans.Any())
             {
                 Console.WriteLine("Degree already exist");   // DB has been seeded
@@ -126,14 +136,14 @@ namespace StudentPlan.Data
             {
                 var degreeplans = new DegreePlan[]
                 {
-new DegreePlan{DegreePlanID=7251 ,  StudentID=533901 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can ",DegreeID=2},
-new DegreePlan{DegreePlanID=7252 ,  StudentID=533901 ,DegreePlanAbbrev="Slow and Easy" ,DegreePlanName="Take a summer off",DegreeID=2},
-new DegreePlan{DegreePlanID=7253 ,  StudentID=533620 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can" ,DegreeID=2},
-new DegreePlan{DegreePlanID=7254 ,  StudentID=533620 ,DegreePlanAbbrev="Slow and Easy" ,DegreePlanName="Take a summer off" ,DegreeID=2},
-new DegreePlan{DegreePlanID=7255 ,  StudentID=533979 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can" ,DegreeID=2},
-new DegreePlan{DegreePlanID=7256 ,  StudentID=533979 ,DegreePlanAbbrev="Slow and Easy" ,DegreePlanName="Take a summer off",DegreeID=2},
-new DegreePlan{DegreePlanID=7257 ,  StudentID=533978 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can ",DegreeID=2},
-new DegreePlan{DegreePlanID=7258 ,  StudentID=533978 ,DegreePlanAbbrev="Slow and Easy"  ,DegreePlanName="Take a summer off",DegreeID=2},
+new DegreePlan{DegreePlanId=7251 ,  StudentId=533901 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can ",DegreeId=2},
+new DegreePlan{DegreePlanId=7252 ,  StudentId=533901 ,DegreePlanAbbrev="Slow and Easy" ,DegreePlanName="Take a summer off",DegreeId=2},
+new DegreePlan{DegreePlanId=7253 ,  StudentId=533620 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can" ,DegreeId=2},
+new DegreePlan{DegreePlanId=7254 ,  StudentId=533620 ,DegreePlanAbbrev="Slow and Easy" ,DegreePlanName="Take a summer off" ,DegreeId=2},
+new DegreePlan{DegreePlanId=7255 ,  StudentId=533979 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can" ,DegreeId=2},
+new DegreePlan{DegreePlanId=7256 ,  StudentId=533979 ,DegreePlanAbbrev="Slow and Easy" ,DegreePlanName="Take a summer off",DegreeId=2},
+new DegreePlan{DegreePlanId=7257 ,  StudentId=533978 ,DegreePlanAbbrev="Super Fast" ,DegreePlanName="As fast as I can ",DegreeId=2},
+new DegreePlan{DegreePlanId=7258 ,  StudentId=533978 ,DegreePlanAbbrev="Slow and Easy"  ,DegreePlanName="Take a summer off",DegreeId=2},
 
                 };
 
@@ -143,6 +153,40 @@ new DegreePlan{DegreePlanID=7258 ,  StudentID=533978 ,DegreePlanAbbrev="Slow and
                 }
                 context.SaveChanges();
             }
+
+            if (context.Slots.Any())
+            {
+                Console.WriteLine("Slots already exist");   // DB has been seeded
+            }
+            else
+            {
+                var slots = new Slot[]
+                {
+
+
+            new Slot { SlotId = 1, DegreePlanId = 7251, DegreeTerm = 1, CreditId = 460, Status = "C" },
+new Slot { SlotId = 2, DegreePlanId = 7251, DegreeTerm = 1, CreditId = 542, Status = "C" },
+new Slot { SlotId = 3, DegreePlanId = 7251, DegreeTerm = 1, CreditId = 563, Status = "C" },
+new Slot { SlotId = 4, DegreePlanId = 7251, DegreeTerm = 2, CreditId = 560, Status = "A" },
+new Slot { SlotId = 5, DegreePlanId = 7251, DegreeTerm = 2, CreditId = 64, Status = "A" },
+new Slot { SlotId = 6, DegreePlanId = 7251, DegreeTerm = 2, CreditId = 555, Status = "A" },
+new Slot { SlotId = 7, DegreePlanId = 7251, DegreeTerm = 3, CreditId = 691, Status = "P" },
+new Slot { SlotId = 8, DegreePlanId = 7251, DegreeTerm = 3, CreditId = 10, Status = "P"},
+new Slot { SlotId = 9, DegreePlanId = 7251, DegreeTerm = 3, CreditId = 618, Status = "P" },
+new Slot { SlotId = 10, DegreePlanId = 7251, DegreeTerm = 4, CreditId = 20, Status = "P" },
+new Slot { SlotId = 11, DegreePlanId = 7251, DegreeTerm = 4, CreditId = 692, Status = "P" },
+new Slot { SlotId = 12, DegreePlanId = 7251, DegreeTerm = 4, CreditId = 664, Status = "P" },
+                };
+
+                foreach (Slot ci in slots)
+                {
+                    context.Slots.Add(ci);
+                }
+                context.SaveChanges();
+            }
+
+
+
             if (context.StudentTerms.Any())
             {
                 Console.WriteLine("Degree already exist");   // DB has been seeded
@@ -151,21 +195,21 @@ new DegreePlan{DegreePlanID=7258 ,  StudentID=533978 ,DegreePlanAbbrev="Slow and
             {
                 var studentterms = new StudentTerm[]
                 {
-new  StudentTerm{StudentTermID =1 , StudentID ="S533725", DegreePlanID =7251 , Term =1, TermAbbr ="F18" , TermName =" Fall2018", NoOfCoursesTaken = 4},
-new  StudentTerm{StudentTermID =2 , StudentID ="S533725", DegreePlanID =7251 , Term =2, TermAbbr ="s19 ", TermName = "Spring2019", NoOfCoursesTaken = 3},
-new  StudentTerm{StudentTermID =3 , StudentID ="S533725" , DegreePlanID =7251 , Term =3, TermAbbr ="Su19" , TermName = "Summer2019",NoOfCoursesTaken = 0},
-new  StudentTerm{StudentTermID =4 , StudentID ="S533725" , DegreePlanID =7251 , Term =4, TermAbbr ="F19" , TermName = "Fall2019",NoOfCoursesTaken = 3},
-new  StudentTerm{StudentTermID =5 , StudentID ="S533725" , DegreePlanID =7251 , Term =5, TermAbbr ="s20" , TermName =" Spring2020",NoOfCoursesTaken = 2},
-new  StudentTerm{StudentTermID =6 , StudentID ="S534049" , DegreePlanID =7253 , Term =1, TermAbbr ="F19 ", TermName = "Fall2019",NoOfCoursesTaken = 4},
-new  StudentTerm{StudentTermID =7 , StudentID ="S534049" , DegreePlanID =7253 , Term =2, TermAbbr ="s20 ", TermName = "Spring2020",NoOfCoursesTaken = 3},
-new  StudentTerm{StudentTermID =8 , StudentID ="S534049" , DegreePlanID =7253 , Term =3, TermAbbr ="Su20" , TermName = "Summer2020",NoOfCoursesTaken = 2},
-new  StudentTerm{StudentTermID =9 , StudentID ="S534049", DegreePlanID =7253 , Term =4, TermAbbr ="F20 ", TermName =" Fall2020",NoOfCoursesTaken = 2},
-new  StudentTerm{StudentTermID =10 , StudentID ="S534049", DegreePlanID =7253 , Term =5, TermAbbr ="S21" , TermName = "Spring2021",NoOfCoursesTaken = 2},
-new  StudentTerm{StudentTermID =11 , StudentID ="S533726" , DegreePlanID =7254 , Term =1, TermAbbr ="S19" , TermName = "Spring2019",NoOfCoursesTaken = 4},
-new  StudentTerm{StudentTermID =12 , StudentID = "S533726" , DegreePlanID =7254 , Term =2, TermAbbr ="Su19" , TermName = "Summer2019",NoOfCoursesTaken = 0},
-new  StudentTerm{StudentTermID =13 , StudentID ="S533726"  , DegreePlanID =7254 , Term =3, TermAbbr ="F19" , TermName = "Fall2019",NoOfCoursesTaken = 3},
-new  StudentTerm{StudentTermID =14 , StudentID ="S533726" , DegreePlanID =7254 , Term =4, TermAbbr ="S20" , TermName = "Spring2020",NoOfCoursesTaken = 3},
-new  StudentTerm{StudentTermID =15 , StudentID ="S533726"  , DegreePlanID =7254 , Term =5, TermAbbr ="Su20 ", TermName = "Summer2020",NoOfCoursesTaken = 3},
+new  StudentTerm{StudentTermId =1 , DegreePlanId =7251 , Term =1, TermAbbr ="F18" , TermName =" Fall2018", NoOfCoursesTaken = 4},
+new  StudentTerm{StudentTermId =2 ,  DegreePlanId =7251 , Term =2, TermAbbr ="s19 ", TermName = "Spring2019", NoOfCoursesTaken = 3},
+new  StudentTerm{StudentTermId =3 ,  DegreePlanId =7251 , Term =3, TermAbbr ="Su19" , TermName = "Summer2019",NoOfCoursesTaken = 0},
+new  StudentTerm{StudentTermId =4 ,  DegreePlanId =7251 , Term =4, TermAbbr ="F19" , TermName = "Fall2019",NoOfCoursesTaken = 3},
+new  StudentTerm{StudentTermId =5 ,  DegreePlanId =7251 , Term =5, TermAbbr ="s20" , TermName =" Spring2020",NoOfCoursesTaken = 2},
+new  StudentTerm{StudentTermId =6 , DegreePlanId =7253 , Term =1, TermAbbr ="F19 ", TermName = "Fall2019",NoOfCoursesTaken = 4},
+new  StudentTerm{StudentTermId =7 ,  DegreePlanId =7253 , Term =2, TermAbbr ="s20 ", TermName = "Spring2020",NoOfCoursesTaken = 3},
+new  StudentTerm{StudentTermId =8 ,  DegreePlanId =7253 , Term =3, TermAbbr ="Su20" , TermName = "Summer2020",NoOfCoursesTaken = 2},
+new  StudentTerm{StudentTermId =9 ,  DegreePlanId =7253 , Term =4, TermAbbr ="F20 ", TermName =" Fall2020",NoOfCoursesTaken = 2},
+new  StudentTerm{StudentTermId =10 ,  DegreePlanId =7253 , Term =5, TermAbbr ="S21" , TermName = "Spring2021",NoOfCoursesTaken = 2},
+new  StudentTerm{StudentTermId =11 ,  DegreePlanId =7254 , Term =1, TermAbbr ="S19" , TermName = "Spring2019",NoOfCoursesTaken = 4},
+new  StudentTerm{StudentTermId =12 ,  DegreePlanId =7254 , Term =2, TermAbbr ="Su19" , TermName = "Summer2019",NoOfCoursesTaken = 0},
+new  StudentTerm{StudentTermId =13 ,  DegreePlanId =7254 , Term =3, TermAbbr ="F19" , TermName = "Fall2019",NoOfCoursesTaken = 3},
+new  StudentTerm{StudentTermId =14 ,  DegreePlanId =7254 , Term =4, TermAbbr ="S20" , TermName = "Spring2020",NoOfCoursesTaken = 3},
+new  StudentTerm{StudentTermId =15 ,  DegreePlanId =7254 , Term =5, TermAbbr ="Su20 ", TermName = "Summer2020",NoOfCoursesTaken = 3},
 
                 };
 
