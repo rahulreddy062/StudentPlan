@@ -33,4 +33,13 @@ This application has a basic user interface with options to drag and drop with a
 - Open the solution .sln file and click on the run button in visual studio.
 * Link to the repo issues:  [Issues](https://github.com/rahulreddy062/StudentPlan/issues?q=is%3Aissue+is%3Aclosed).
 
-### Screenshots showing the application running
+### Cost Estimator 
+
+| Take home         | 50/hour  |
+|-------------------|----------|
+| multiplier        | 3        |
+| billing rate      | 150/hour |
+| hours/work        | 10       |
+| weeks             | 4        |
+| no of developers  | 4        |
+| Cost              | 24000    |
