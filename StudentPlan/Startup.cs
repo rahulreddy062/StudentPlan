@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentPlan.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace StudentPlan
 {
@@ -30,7 +31,7 @@ namespace StudentPlan
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
     if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
-    services.AddDbContext<MyDatabaseContext>(options =>
+    services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
     }
             else {
@@ -41,7 +42,7 @@ namespace StudentPlan
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             }
-        services.BuildServiceProvider().GetService<MyDatabaseContext>().Database.Migrate();
+        services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
         }
