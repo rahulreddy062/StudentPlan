@@ -11,5 +11,6 @@
     <WebStackScaffolding_DbContextTypeFullName>StudentPlan.Data.ApplicationDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
+    <NameOfLastUsedPublishProfile>StudentPlan - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
