@@ -293,6 +293,8 @@ namespace StudentPlan.Migrations
                 {
                     b.Property<int>("StudentId");
 
+                    b.Property<bool>("Done");
+
                     b.Property<string>("Family")
                         .IsRequired()
                         .HasMaxLength(40);

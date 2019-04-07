@@ -84,7 +84,8 @@ namespace StudentPlan.Migrations
                     Family = table.Column<string>(maxLength: 40, nullable: false),
                     Given = table.Column<string>(maxLength: 40, nullable: false),
                     Snumber = table.Column<string>(nullable: true),
-                    Number919 = table.Column<int>(nullable: false)
+                    Number919 = table.Column<int>(nullable: false),
+                    Done = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

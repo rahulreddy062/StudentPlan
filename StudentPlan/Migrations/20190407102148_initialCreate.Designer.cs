@@ -10,7 +10,7 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190407100026_initialCreate")]
+    [Migration("20190407102148_initialCreate")]
     partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -294,6 +294,8 @@ namespace StudentPlan.Migrations
             modelBuilder.Entity("StudentPlan.Models.Student", b =>
                 {
                     b.Property<int>("StudentId");
+
+                    b.Property<bool>("Done");
 
                     b.Property<string>("Family")
                         .IsRequired()

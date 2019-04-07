@@ -22,6 +22,8 @@ namespace StudentPlan.Models
         public string Snumber{get; set;}
         public int Number919{ get; set; }
 
+        public bool Done { get; set; }
+
         public ICollection<DegreePlan> DegreePlans { get; set; }
         public ICollection<StudentTerm> StudentTerms { get; set; }
     }

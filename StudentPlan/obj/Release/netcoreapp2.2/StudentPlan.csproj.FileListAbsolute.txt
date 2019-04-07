@@ -131,3 +131,4 @@ C:\Users\S533620\Documents\44663\StudentPlan\StudentPlan\obj\Release\netcoreapp2
 C:\Users\S533620\Documents\44663\StudentPlan\StudentPlan\obj\Release\netcoreapp2.2\StudentPlan.RazorTargetAssemblyInfo.cs
 C:\Users\S533620\Documents\44663\StudentPlan\StudentPlan\obj\Release\netcoreapp2.2\StudentPlan.Views.pdb
 C:\Users\S533620\Documents\44663\StudentPlan\StudentPlan\obj\Release\netcoreapp2.2\StudentPlan.csproj.CopyComplete
+C:\Users\S533620\Documents\44663\StudentPlan\StudentPlan\obj\Release\netcoreapp2.2\StudentPlan.csprojAssemblyReference.cache
