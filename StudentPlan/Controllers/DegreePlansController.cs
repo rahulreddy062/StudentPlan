@@ -95,7 +95,7 @@ namespace StudentPlan.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DegreePlanId,DegreeId,StudentId,DegreePlanAbbrev,DegreePlanName")] DegreePlan degreePlan)
+        public async Task<IActionResult> Create([Bind("DegreePlanId,DegreeId,StudentId,DegreePlanAbbrev,DegreePlanName, Done")] DegreePlan degreePlan)
         {
             if (ModelState.IsValid)
             {

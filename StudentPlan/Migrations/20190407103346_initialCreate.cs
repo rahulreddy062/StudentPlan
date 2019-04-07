@@ -231,7 +231,8 @@ namespace StudentPlan.Migrations
                     DegreeId = table.Column<int>(nullable: false),
                     StudentId = table.Column<int>(nullable: false),
                     DegreePlanAbbrev = table.Column<string>(maxLength: 30, nullable: false),
-                    DegreePlanName = table.Column<string>(maxLength: 30, nullable: false)
+                    DegreePlanName = table.Column<string>(maxLength: 30, nullable: false),
+                    Done = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

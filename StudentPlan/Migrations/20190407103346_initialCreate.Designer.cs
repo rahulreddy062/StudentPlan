@@ -10,7 +10,7 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190407102148_initialCreate")]
+    [Migration("20190407103346_initialCreate")]
     partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,6 +239,8 @@ namespace StudentPlan.Migrations
                     b.Property<string>("DegreePlanName")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<bool>("Done");
 
                     b.Property<int>("StudentId");
 

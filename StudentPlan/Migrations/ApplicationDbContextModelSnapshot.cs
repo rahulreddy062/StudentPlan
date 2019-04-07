@@ -238,6 +238,8 @@ namespace StudentPlan.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
+                    b.Property<bool>("Done");
+
                     b.Property<int>("StudentId");
 
                     b.HasKey("DegreePlanId");
