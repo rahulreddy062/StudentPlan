@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentPlan.Models;
+using StudentPlan.Models.Models;
 
 namespace StudentPlan.Data
 
@@ -18,7 +19,7 @@ namespace StudentPlan.Data
         public DbSet<Slot> Slots { get; set; }
         public DbSet<DegreeRequirement> DegreeRequirements {get; set;}
         public DbSet<StudentTerm> StudentTerms { get; set; }
-
+        public DbSet<Developer> Developers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

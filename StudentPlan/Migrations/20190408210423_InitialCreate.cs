@@ -77,6 +77,25 @@ namespace StudentPlan.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Developers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Given = table.Column<string>(maxLength: 23, nullable: false),
+                    Family = table.Column<string>(maxLength: 23, nullable: false),
+                    GraduationTerm = table.Column<string>(maxLength: 23, nullable: false),
+                    DesiredPosition = table.Column<string>(maxLength: 23, nullable: false),
+                    Skills = table.Column<string>(maxLength: 23, nullable: false),
+                    Rating = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Developers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
@@ -404,6 +423,9 @@ namespace StudentPlan.Migrations
 
             migrationBuilder.DropTable(
                 name: "DegreeRequirements");
+
+            migrationBuilder.DropTable(
+                name: "Developers");
 
             migrationBuilder.DropTable(
                 name: "Slot");

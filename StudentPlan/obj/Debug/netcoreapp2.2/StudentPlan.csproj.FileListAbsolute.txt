@@ -65,3 +65,8 @@ C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Slots\Details.g.cshtml.cs
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Slots\Edit.g.cshtml.cs
 C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Slots\Index.g.cshtml.cs
+C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Developers\Create.g.cshtml.cs
+C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Developers\Delete.g.cshtml.cs
+C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Developers\Details.g.cshtml.cs
+C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Developers\Edit.g.cshtml.cs
+C:\Users\S533901\Documents\44663\StudentPlan\StudentPlan\obj\Debug\netcoreapp2.2\Razor\Views\Developers\Index.g.cshtml.cs

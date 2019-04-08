@@ -10,7 +10,7 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190405220420_InitialCreate")]
+    [Migration("20190408210423_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,6 +266,41 @@ namespace StudentPlan.Migrations
                     b.HasIndex("DegreeId");
 
                     b.ToTable("DegreeRequirements");
+                });
+
+            modelBuilder.Entity("StudentPlan.Models.Models.Developer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("DesiredPosition")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<string>("Given")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<string>("GraduationTerm")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<int>("Rating");
+
+                    b.Property<string>("Skills")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Developers");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.Slot", b =>
