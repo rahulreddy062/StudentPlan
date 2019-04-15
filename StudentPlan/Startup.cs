@@ -30,6 +30,7 @@ namespace StudentPlan
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
     if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
     services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
@@ -43,6 +44,29 @@ namespace StudentPlan
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             }
         services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+
+
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            }
+
+
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection")));
+
+            }
+
+            services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+ 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
         }
