@@ -14,6 +14,7 @@ namespace StudentPlan.Models
 
         // public int StudentId { get; set;}
         public int Term { get; set; }
+        public DegreePlan DegreePlan { get; set; }
 
        
       
@@ -33,6 +34,7 @@ namespace StudentPlan.Models
         public int DegreePlanId { get; set; }
 
         //public Student Student { get; set; }
-        public DegreePlan DegreePlan { get; set; }
+       
+       
     }
 }

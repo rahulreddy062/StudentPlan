@@ -465,7 +465,7 @@ namespace StudentPlan.Migrations
             modelBuilder.Entity("StudentPlan.Models.StudentTerm", b =>
                 {
                     b.HasOne("StudentPlan.Models.DegreePlan", "DegreePlan")
-                        .WithMany()
+                        .WithMany("StudentTerms")
                         .HasForeignKey("DegreePlanId")
                         .OnDelete(DeleteBehavior.Cascade);
 

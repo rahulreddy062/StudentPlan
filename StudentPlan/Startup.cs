@@ -31,44 +31,26 @@ namespace StudentPlan
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-    if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
-    services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-    }
-            else {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            }
-        services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
-
-
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             }
-
-
             else
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection")));
-
+                 options.UseSqlServer(
+                     Configuration.GetConnectionString("DefaultConnection")));
             }
 
+            // Automatically perform database migration
             services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
- 
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

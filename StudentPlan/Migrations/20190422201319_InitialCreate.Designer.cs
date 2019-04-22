@@ -10,8 +10,8 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190407103346_initialCreate")]
-    partial class initialCreate
+    [Migration("20190422201319_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -270,6 +270,41 @@ namespace StudentPlan.Migrations
                     b.ToTable("DegreeRequirements");
                 });
 
+            modelBuilder.Entity("StudentPlan.Models.Models.Developer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("DesiredPosition")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<string>("Given")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<string>("GraduationTerm")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.Property<int>("Rating");
+
+                    b.Property<string>("Skills")
+                        .IsRequired()
+                        .HasMaxLength(23);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Developers");
+                });
+
             modelBuilder.Entity("StudentPlan.Models.Slot", b =>
                 {
                     b.Property<int>("SlotId");
@@ -432,7 +467,7 @@ namespace StudentPlan.Migrations
             modelBuilder.Entity("StudentPlan.Models.StudentTerm", b =>
                 {
                     b.HasOne("StudentPlan.Models.DegreePlan", "DegreePlan")
-                        .WithMany()
+                        .WithMany("StudentTerms")
                         .HasForeignKey("DegreePlanId")
                         .OnDelete(DeleteBehavior.Cascade);
 

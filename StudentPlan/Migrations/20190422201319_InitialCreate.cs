@@ -103,7 +103,8 @@ namespace StudentPlan.Migrations
                     Family = table.Column<string>(maxLength: 40, nullable: false),
                     Given = table.Column<string>(maxLength: 40, nullable: false),
                     Snumber = table.Column<string>(nullable: true),
-                    Number919 = table.Column<int>(nullable: false)
+                    Number919 = table.Column<int>(nullable: false),
+                    Done = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,7 +250,8 @@ namespace StudentPlan.Migrations
                     DegreeId = table.Column<int>(nullable: false),
                     StudentId = table.Column<int>(nullable: false),
                     DegreePlanAbbrev = table.Column<string>(maxLength: 30, nullable: false),
-                    DegreePlanName = table.Column<string>(maxLength: 30, nullable: false)
+                    DegreePlanName = table.Column<string>(maxLength: 30, nullable: false),
+                    Done = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
