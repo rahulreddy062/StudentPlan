@@ -51,7 +51,7 @@ This application has a basic user interface with options to drag and drop with a
 
 
 ## Commit's & Issue tracker links:
-https://github.com/rahulreddy062/StudentPlan/issues
+https://github.com/rahulreddy062/StudentPlan/issues\n
 https://github.com/rahulreddy062/StudentPlan/commits/master
 
 
