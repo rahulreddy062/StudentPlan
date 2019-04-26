@@ -14,7 +14,7 @@ This application has a basic user interface with options to drag and drop with a
 
 ## DEVELOPERS 
 - Jeevan Sai Subhash Veeramachaneni
-- Sai Sampath Vagicherla
+- Sai Sampath Vagicharla
 - Sandeep Devineni
 - Rahul Reddy Dayam 
 ## How to clone and run our application 
@@ -48,3 +48,10 @@ This application has a basic user interface with options to drag and drop with a
 
 ![](https://raw.githubusercontent.com/rahulreddy062/StudentPlan/master/1.PNG)
 ![](https://raw.githubusercontent.com/rahulreddy062/StudentPlan/master/2.PNG) 
+
+
+## Commit's & Issue tracker links:
+https://github.com/rahulreddy062/StudentPlan/issues
+https://github.com/rahulreddy062/StudentPlan/commits/master
+
+
