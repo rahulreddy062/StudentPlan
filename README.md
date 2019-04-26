@@ -56,4 +56,6 @@ https://github.com/rahulreddy062/StudentPlan/issues
 
 https://github.com/rahulreddy062/StudentPlan/commits/master
 
+Dragula :
+We have Implemented dragula for the student named rahul reddy dayam he can plan various student plans for his terms.
 
