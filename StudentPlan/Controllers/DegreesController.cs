@@ -59,7 +59,9 @@ namespace StudentPlan.Controllers
             }
 
             var degree = await _context.Degrees
-                .FirstOrDefaultAsync(m => m.DegreeId == id);
+              .Include(d => d.Credits)
+              .SingleOrDefaultAsync(m => m.DegreeId == id);
+
             if (degree == null)
             {
                 return NotFound();
@@ -93,13 +95,12 @@ namespace StudentPlan.Controllers
         // GET: Degrees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+           if(id == null)
             {
                 return NotFound();
             }
-
             var degree = await _context.Degrees.FindAsync(id);
-            if (degree == null)
+            if(degree == null)
             {
                 return NotFound();
             }

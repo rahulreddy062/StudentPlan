@@ -33,5 +33,7 @@ namespace StudentPlan.Models
         public Degree Degree { get; set; }
         public Student Student { get; set; }
         public ICollection<StudentTerm> StudentTerms { get; set; }
+        public ICollection<Slot> Slots { get; set; }
+
     }
 }

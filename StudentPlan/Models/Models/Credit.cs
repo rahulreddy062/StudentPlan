@@ -29,5 +29,9 @@ namespace StudentPlan.Models
 
         [Display(Name = "In Fall?")]
         public int IsFall { get; set; } = 1;
+
+        public int DegreeId { get; set; }
+        public Degree Degree { get; set; }
+        public StudentTerm StudentTerm { get; set; }
     }
 }

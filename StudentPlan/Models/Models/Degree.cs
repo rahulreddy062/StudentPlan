@@ -22,6 +22,7 @@ namespace StudentPlan.Models
         [StringLength(20, MinimumLength = 3)]
         [Display(Name = "Name")]
         public string DegreeName { get; set; }
-        
+        public ICollection<Credit> Credits { get; set; }
+
     }
 }

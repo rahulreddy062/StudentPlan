@@ -196,13 +196,21 @@ namespace StudentPlan.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int>("DegreeId");
+
                     b.Property<int>("IsFall");
 
                     b.Property<int>("IsSpring");
 
                     b.Property<int>("IsSummer");
 
+                    b.Property<int?>("StudentTermId");
+
                     b.HasKey("CreditId");
+
+                    b.HasIndex("DegreeId");
+
+                    b.HasIndex("StudentTermId");
 
                     b.ToTable("Credit");
                 });
@@ -317,11 +325,15 @@ namespace StudentPlan.Migrations
                         .IsRequired()
                         .HasMaxLength(8);
 
+                    b.Property<int?>("StudentTermId");
+
                     b.HasKey("SlotId");
 
                     b.HasIndex("CreditId");
 
                     b.HasIndex("DegreePlanId");
+
+                    b.HasIndex("StudentTermId");
 
                     b.ToTable("Slot");
                 });
@@ -423,6 +435,18 @@ namespace StudentPlan.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("StudentPlan.Models.Credit", b =>
+                {
+                    b.HasOne("StudentPlan.Models.Degree", "Degree")
+                        .WithMany("Credits")
+                        .HasForeignKey("DegreeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentPlan.Models.StudentTerm", "StudentTerm")
+                        .WithMany("Credits")
+                        .HasForeignKey("StudentTermId");
+                });
+
             modelBuilder.Entity("StudentPlan.Models.DegreePlan", b =>
                 {
                     b.HasOne("StudentPlan.Models.Degree", "Degree")
@@ -457,9 +481,13 @@ namespace StudentPlan.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudentPlan.Models.DegreePlan", "DegreePlan")
-                        .WithMany()
+                        .WithMany("Slots")
                         .HasForeignKey("DegreePlanId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentPlan.Models.StudentTerm", "StudentTerm")
+                        .WithMany("Slots")
+                        .HasForeignKey("StudentTermId");
                 });
 
             modelBuilder.Entity("StudentPlan.Models.StudentTerm", b =>
