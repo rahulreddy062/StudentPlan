@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudentPlan.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,8 +112,7 @@ namespace StudentPlan.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -133,8 +132,7 @@ namespace StudentPlan.Migrations
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -153,8 +151,7 @@ namespace StudentPlan.Migrations
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -171,14 +168,12 @@ namespace StudentPlan.Migrations
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -219,14 +214,12 @@ namespace StudentPlan.Migrations
                         name: "FK_DegreePlan_Degree_DegreeId",
                         column: x => x.DegreeId,
                         principalTable: "Degree",
-                        principalColumn: "DegreeId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DegreeId");
                     table.ForeignKey(
                         name: "FK_DegreePlan_Student_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StudentId");
                 });
 
             migrationBuilder.CreateTable(
@@ -248,14 +241,12 @@ namespace StudentPlan.Migrations
                         name: "FK_StudentTerm_DegreePlan_DegreePlanId",
                         column: x => x.DegreePlanId,
                         principalTable: "DegreePlan",
-                        principalColumn: "DegreePlanId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DegreePlanId");
                     table.ForeignKey(
                         name: "FK_StudentTerm_Student_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "StudentId");
                 });
 
             migrationBuilder.CreateTable(
@@ -278,14 +269,12 @@ namespace StudentPlan.Migrations
                         name: "FK_Credit_Degree_DegreeId",
                         column: x => x.DegreeId,
                         principalTable: "Degree",
-                        principalColumn: "DegreeId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DegreeId");
                     table.ForeignKey(
                         name: "FK_Credit_StudentTerm_StudentTermId",
                         column: x => x.StudentTermId,
                         principalTable: "StudentTerm",
-                        principalColumn: "StudentTermId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "StudentTermId");
                 });
 
             migrationBuilder.CreateTable(
@@ -303,14 +292,12 @@ namespace StudentPlan.Migrations
                         name: "FK_DegreeRequirements_Credit_CreditId",
                         column: x => x.CreditId,
                         principalTable: "Credit",
-                        principalColumn: "CreditId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CreditId");
                     table.ForeignKey(
                         name: "FK_DegreeRequirements_Degree_DegreeId",
                         column: x => x.DegreeId,
                         principalTable: "Degree",
-                        principalColumn: "DegreeId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "DegreeId");
                 });
 
             migrationBuilder.CreateTable(
@@ -331,20 +318,17 @@ namespace StudentPlan.Migrations
                         name: "FK_Slot_Credit_CreditId",
                         column: x => x.CreditId,
                         principalTable: "Credit",
-                        principalColumn: "CreditId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CreditId");
                     table.ForeignKey(
                         name: "FK_Slot_DegreePlan_DegreePlanId",
                         column: x => x.DegreePlanId,
                         principalTable: "DegreePlan",
-                        principalColumn: "DegreePlanId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "DegreePlanId");
                     table.ForeignKey(
                         name: "FK_Slot_StudentTerm_StudentTermId",
                         column: x => x.StudentTermId,
                         principalTable: "StudentTerm",
-                        principalColumn: "StudentTermId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "StudentTermId");
                 });
 
             migrationBuilder.CreateIndex(

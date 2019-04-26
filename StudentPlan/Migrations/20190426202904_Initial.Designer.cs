@@ -10,8 +10,8 @@ using StudentPlan.Data;
 namespace StudentPlan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190426052330_initial")]
-    partial class initial
+    [Migration("20190426202904_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
