@@ -14,7 +14,7 @@ This application has a basic user interface with options to drag and drop with a
 
 ## DEVELOPERS 
 - Jeevan Sai Subhash Veeramachaneni
-- Sai Sampath Vagicharla
+- Sai Sampath Vagicharla 
 - Sandeep Devineni
 - Rahul Reddy Dayam 
 ## How to clone and run our application 
@@ -56,4 +56,12 @@ https://github.com/rahulreddy062/StudentPlan/issues
 
 https://github.com/rahulreddy062/StudentPlan/commits/master
 
+Dragula :
+We have Implemented dragula for the student named rahul reddy dayam he can plan various student plans for his terms.
 
+Job Division 
+
+- Rahul - Models 
+- Subhash - Controllers 
+- Sampath - Views
+- Sandeep- Code Organization and deploying on to the cloud 
